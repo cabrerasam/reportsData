@@ -13,8 +13,8 @@ CREATE OR REPLACE FUNCTION create_sunday(
 DECLARE
   new_id UUID;
 BEGIN
-  INSERT INTO sundays (id_sunday, type_sunday, priority_sunday, confidentiality_sunday, num_sunday, date_sunday, issue_sunday, link_sunday, id_user)
-  VALUES (_id_sunday, _type_sunday, _priority_sunday, _confidentiality_sunday, _num_sunday, _date_sunday, _issue_sunday, _link_sunday, _id_user)
+  INSERT INTO sundays (id_sunday, type_sunday, priority_sunday, confidentiality_sunday, num_sunday, date_sunday, link_sunday, id_user)
+  VALUES (_id_sunday, _type_sunday, _priority_sunday, _confidentiality_sunday, _num_sunday, _date_sunday, _link_sunday, _id_user)
   RETURNING id_sunday INTO new_id;
 
   RETURN jsonb_build_object(
@@ -25,7 +25,6 @@ BEGIN
     'confidentiality_sunday', _confidentiality_sunday,
     'num_sunday', _num_sunday,
     'date_sunday', _date_sunday,
-    'issue_sunday', _issue_sunday,
     'link_sunday', _link_sunday,
     'id_user', _id_user
   );
@@ -45,7 +44,6 @@ CREATE OR REPLACE FUNCTION update_sunday(
   _confidentiality_sunday VARCHAR,
   _num_sunday VARCHAR,
   _date_sunday DATE,
-  _issue_sunday VARCHAR,
   _link_sunday VARCHAR,
   _id_user UUID
 ) RETURNS jsonb AS $$
@@ -58,7 +56,6 @@ BEGIN
       confidentiality_sunday = _confidentiality_sunday,
       num_sunday = _num_sunday,
       date_sunday = _date_sunday,
-      issue_sunday = _issue_sunday,
       link_sunday = _link_sunday,
       id_user = _id_user
   WHERE id_sunday = _id_sunday

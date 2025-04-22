@@ -6,15 +6,14 @@ CREATE OR REPLACE FUNCTION create_alert(
   _confidentiality_alert VARCHAR,
   _num_alert VARCHAR,
   _date_alert DATE,
-  _issue_alert VARCHAR,
   _link_alert VARCHAR,
   _id_user UUID
 ) RETURNS jsonb AS $$
 DECLARE
   new_id UUID;
 BEGIN
-  INSERT INTO alerts (id_alert, type_alert, priority_alert, confidentiality_alert, num_alert, date_alert, issue_alert, link_alert, id_user)
-  VALUES (_id_alert, _type_alert, _priority_alert, _confidentiality_alert, _num_alert, _date_alert, _issue_alert, _link_alert, _id_user)
+  INSERT INTO alerts (id_alert, type_alert, priority_alert, confidentiality_alert, num_alert, date_alert, link_alert, id_user)
+  VALUES (_id_alert, _type_alert, _priority_alert, _confidentiality_alert, _num_alert, _date_alert, _link_alert, _id_user)
   RETURNING id_alert INTO new_id;
 
   RETURN jsonb_build_object(
@@ -25,7 +24,6 @@ BEGIN
     'confidentiality_alert', _confidentiality_alert,
     'num_alert', _num_alert,
     'date_alert', _date_alert,
-    'issue_alert', _issue_alert,
     'link_alert', _link_alert,
     'id_user', _id_user
   );
@@ -45,7 +43,6 @@ CREATE OR REPLACE FUNCTION update_alert(
   _confidentiality_alert VARCHAR,
   _num_alert VARCHAR,
   _date_alert DATE,
-  _issue_alert VARCHAR,
   _link_alert VARCHAR,
   _id_user UUID
 ) RETURNS jsonb AS $$
@@ -58,7 +55,6 @@ BEGIN
       confidentiality_alert = _confidentiality_alert,
       num_alert = _num_alert,
       date_alert = _date_alert,
-      issue_alert = _issue_alert,
       link_alert = _link_alert,
       id_user = _id_user
   WHERE id_alert = _id_alert
