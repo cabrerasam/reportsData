@@ -116,8 +116,8 @@ BEGIN
          pgp_sym_decrypt(password_user::bytea, 'AES_KEY'), 
          user_name, 
          id_area, 
-         id_role, 
-  INTO _id, user_password, _user_name, _id_area, _id_role
+         id_role 
+  INTO _id, user_password, _user_name, _id_area, _id_role 
   FROM users
   WHERE user_nick = _user_nick;
 
