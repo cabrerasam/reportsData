@@ -42,13 +42,11 @@ CREATE TABLE users (
 	password_user varchar(255) NOT NULL,
 	id_area UUID NOT NULL,
 	id_role UUID NOT NULL,
-	id_region UUID NOT NULL,
 	id_super_user UUID NOT NULL,
 	CONSTRAINT users_pk PRIMARY KEY (id_user),
 	CONSTRAINT users_uk UNIQUE (user_nick),
 	CONSTRAINT users_areas_fk FOREIGN KEY (id_area) REFERENCES areas (id_area),
 	CONSTRAINT users_roles_fk FOREIGN KEY (id_role) REFERENCES roles (id_role),
-	CONSTRAINT users_regions_fk FOREIGN KEY (id_region) REFERENCES regions (id_region),
 	CONSTRAINT users_super_user_fk FOREIGN KEY (id_super_user) REFERENCES super_user (id)
 );
 

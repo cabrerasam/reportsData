@@ -6,15 +6,14 @@ CREATE OR REPLACE FUNCTION create_user(
   _password_user varchar,
   _id_area UUID,
   _id_role UUID,
-  _id_region UUID,
   _id_super_user UUID
 ) RETURNS jsonb
 AS $$
 DECLARE
   _id UUID;
 BEGIN
-  INSERT INTO users (id_user, user_name, user_nick, password_user, id_area, id_role, id_region, id_super_user)
-  VALUES (_id_user, _user_name, _user_nick, PGP_SYM_ENCRYPT(_password_user, 'AES_KEY'), _id_area, _id_role, _id_region, _id_super_user)
+  INSERT INTO users (id_user, user_name, user_nick, password_user, id_area, id_role, id_super_user)
+  VALUES (_id_user, _user_name, _user_nick, PGP_SYM_ENCRYPT(_password_user, 'AES_KEY'), _id_area, _id_role, _id_super_user)
   RETURNING id_user INTO _id;
 
   RETURN jsonb_build_object(
@@ -38,7 +37,6 @@ CREATE OR REPLACE FUNCTION update_user(
   _password_user varchar,
   _id_area UUID,
   _id_role UUID,
-  _id_region UUID,
   _id_super_user UUID
 ) RETURNS jsonb
 AS $$
@@ -51,7 +49,6 @@ BEGIN
     password_user = PGP_SYM_ENCRYPT(_password_user, 'AES_KEY'),
     id_area = _id_area,
     id_role = _id_role,
-    id_region = _id_region,
     id_super_user = _id_super_user
   WHERE id_user = _id_user
   RETURNING id_user INTO _updated_id;
@@ -113,7 +110,6 @@ DECLARE
   _user_name varchar;
   _id_area UUID;
   _id_role UUID;
-  _id_region UUID;
 BEGIN
   -- Buscar al usuario por su nickname
   SELECT id_user, 
@@ -121,8 +117,7 @@ BEGIN
          user_name, 
          id_area, 
          id_role, 
-         id_region
-  INTO _id, user_password, _user_name, _id_area, _id_role, _id_region
+  INTO _id, user_password, _user_name, _id_area, _id_role
   FROM users
   WHERE user_nick = _user_nick;
 
@@ -134,7 +129,6 @@ BEGIN
       'user_nick', _user_nick,
       'id_area', _id_area,
       'id_role', _id_role,
-      'id_region', _id_region,
       'message', 'Usuario autenticado exitosamente'
     );
   ELSE
