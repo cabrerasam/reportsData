@@ -53,53 +53,22 @@ CREATE TABLE users (
 );
 
 --REPORTS
-
---DIARY
-CREATE TABLE specials (
-	id_special UUID DEFAULT gen_random_uuid() NOT NULL,
-	create_special timestamp DEFAULT NOW(),
-	type_special varchar(255) NOT NULL,
-	priority_special varchar(255) NOT NULL,
-	confidentiality_special varchar(255) NOT NULL,
-	num_special varchar(255) NOT NULL,
-	date_special DATE NOT NULL,
-	link_special varchar(255) NOT NULL,
+CREATE TABLE reports (
+	id_report UUID DEFAULT gen_random_uuid() NOT NULL,
+	create_report timestamp DEFAULT NOW(),
+	area_report varchar(255) NOT NULL,
+	type_report varchar(255) NOT NULL,
+	priority_report varchar(255) NOT NULL,
+	confidentiality_report varchar(255) NOT NULL,
+	num_report varchar(255) NOT NULL,
+	date_report DATE NOT NULL,
+	link_report varchar(255) NOT NULL,
 	id_user UUID NOT NULL,
-	CONSTRAINT specials_pk PRIMARY KEY (id_special),
-	CONSTRAINT specials_users_fk FOREIGN KEY (id_user) REFERENCES users (id_user)
+	CONSTRAINT report_pk PRIMARY KEY (id_report),
+	CONSTRAINT report_users_fk FOREIGN KEY (id_user) REFERENCES users (id_user)
 );
 
---MONITORING
-CREATE TABLE monitoring (
-	id_monitoring UUID DEFAULT gen_random_uuid() NOT NULL,
-	create_monitoring timestamp DEFAULT NOW(),
-	type_monitoring varchar(255) NOT NULL,
-	priority_monitoring varchar(255) NOT NULL,
-	confidentiality_monitoring varchar(255) NOT NULL,
-	num_monitoring varchar(255) NOT NULL,
-	date_monitoring DATE NOT NULL,
-	link_monitoring varchar(255) NOT NULL,
-	id_user UUID NOT NULL,
-	CONSTRAINT monitoring_pk PRIMARY KEY (id_monitoring),
-	CONSTRAINT monitoring_users_fk FOREIGN KEY (id_user) REFERENCES users (id_user)
-);
-
---ALERT MONITORING
-CREATE TABLE alerts (
-	id_alert UUID DEFAULT gen_random_uuid() NOT NULL,
-	create_alert timestamp DEFAULT NOW(),
-	type_alert varchar(255) NOT NULL,
-	priority_alert varchar(255) NOT NULL,
-	confidentiality_alert varchar(255) NOT NULL,
-	num_alert varchar(255) NOT NULL,
-	date_alert DATE NOT NULL,
-	link_alert varchar(255) NOT NULL,
-	id_user UUID NOT NULL,
-	CONSTRAINT alerts_pk PRIMARY KEY (id_alert),
-	CONSTRAINT alerts_users_fk FOREIGN KEY (id_user) REFERENCES users (id_user)
-);
-
---WEEKLY
+--WEEKLY REPORTS
 CREATE TABLE weekly (
 	id_weekly UUID DEFAULT gen_random_uuid() NOT NULL,
 	create_weekly timestamp DEFAULT NOW(),
@@ -109,33 +78,6 @@ CREATE TABLE weekly (
 	id_user UUID NOT NULL,
 	CONSTRAINT weekly_pk PRIMARY KEY (id_weekly),
 	CONSTRAINT weekly_users_fk FOREIGN KEY (id_user) REFERENCES users (id_user)
-);
-
---NGO WEEKLY
-CREATE TABLE ngo_weekly (
-	id_ngo_weekly UUID DEFAULT gen_random_uuid() NOT NULL,
-	create_ngo_weekly timestamp DEFAULT NOW(),
-	num_ngo_weekly varchar(255) NOT NULL,
-	date_ngo_weekly DATE NOT NULL,
-	link_ngo_weekly varchar(255) NOT NULL,
-	id_user UUID NOT NULL,
-	CONSTRAINT ngo_weekly_pk PRIMARY KEY (id_ngo_weekly),
-	CONSTRAINT ngo_weekly_users_fk FOREIGN KEY (id_user) REFERENCES users (id_user)
-);
-
---SUNDAY
-CREATE TABLE sundays (
-	id_sunday UUID DEFAULT gen_random_uuid() NOT NULL,
-	create_sunday timestamp DEFAULT NOW(),
-	type_sunday varchar(255) NOT NULL,
-	priority_sunday varchar(255) NOT NULL,
-	confidentiality_sunday varchar(255) NOT NULL,
-	num_sunday varchar(255) NOT NULL,
-	date_sunday DATE NOT NULL,
-	link_sunday varchar(255) NOT NULL,
-	id_user UUID NOT NULL,
-	CONSTRAINT sundays_pk PRIMARY KEY (id_sunday),
-	CONSTRAINT sundays_users_fk FOREIGN KEY (id_user) REFERENCES users (id_user)
 );
 
 --ISSUES REPORT
