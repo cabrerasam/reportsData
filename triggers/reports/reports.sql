@@ -38,7 +38,7 @@ BEGIN
     INSERT INTO audit_reports (id_user, action_audit_report, table_audit_report, last_audit_report, new_audit_report)
     SELECT OLD.id_user, 'ELIMINAR', 'INFORME', row_to_json(OLD.*), null;
   END IF;
-  RETURN NEW;
+  RETURN OLD;
 END;
 $$ LANGUAGE plpgSQL;
 

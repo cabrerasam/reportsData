@@ -2,22 +2,22 @@
 CREATE OR REPLACE FUNCTION create_issues_report(
   _id_issues_report UUID,
   _issue_report VARCHAR,
-  _intensity_issues_report VARCHAR,
+  _tags_issues_report VARCHAR,
   _id_report UUID
 
 ) RETURNS jsonb AS $$
 DECLARE
   new_id UUID;
 BEGIN
-  INSERT INTO issues_report (id_issues_report, issue_report, intensity_issues_report, id_report)
-  VALUES (_id_issues_report, _issue_report, _intensity_issues_report, _id_report)
+  INSERT INTO issues_report (id_issues_report, issue_report, tags_issues_report, id_report)
+  VALUES (_id_issues_report, _issue_report, _tags_issues_report, _id_report)
   RETURNING id_issues_report INTO new_id;
 
   RETURN jsonb_build_object(
     'message', 'Issues report created successfully',
     'id_issues_report', new_id,
     'issue_report', _issue_report,
-    'intensity_issues_report', _intensity_issues_report,
+    'tags_issues_report', _tags_issues_report,
     'id_report', _id_report
   );
 EXCEPTION
@@ -32,7 +32,7 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION update_issues_report(
   _id_issues_report UUID,
   _issue_report VARCHAR,
-  _intensity_issues_report VARCHAR,
+  _tags_issues_report VARCHAR,
   _id_report UUID
 ) RETURNS jsonb AS $$
 DECLARE
@@ -40,7 +40,7 @@ DECLARE
 BEGIN
   UPDATE issues_report
   SET issue_report = _issue_report,
-      intensity_issues_report = _intensity_issues_report,
+      tags_issues_report = _tags_issues_report,
       id_report = _id_report
   WHERE id_issues_report = _id_issues_report
   RETURNING * INTO updated_row;

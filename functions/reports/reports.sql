@@ -13,7 +13,7 @@ CREATE OR REPLACE FUNCTION create_report(
 DECLARE
   new_id UUID;
 BEGIN
-  INSERT INTO report (id_report, area_report, type_report, priority_report, confidentiality_report, num_report, date_report, link_report, id_user)
+  INSERT INTO reports (id_report, area_report, type_report, priority_report, confidentiality_report, num_report, date_report, link_report, id_user)
   VALUES (_id_report, _area_report, _type_report, _priority_report, _confidentiality_report, _num_report, _date_report, _link_report, _id_user)
   RETURNING id_report INTO new_id;
 
@@ -52,7 +52,7 @@ CREATE OR REPLACE FUNCTION update_report(
 DECLARE
   updated_row RECORD;
 BEGIN
-  UPDATE report
+  UPDATE reports
   SET area_report = _area_report,
       type_report = _type_report,
       priority_report = _priority_report,
@@ -87,7 +87,7 @@ CREATE OR REPLACE FUNCTION delete_report(
   _id_report UUID
 ) RETURNS jsonb AS $$
 BEGIN
-  DELETE FROM report WHERE id_report = _id_report;
+  DELETE FROM reports WHERE id_report = _id_report;
 
   IF FOUND THEN
     RETURN jsonb_build_object(

@@ -85,7 +85,8 @@ CREATE TABLE issues_report (
 	issue_report varchar(255) NOT NULL,
 	tags_issues_report varchar(255) NOT NULL,
 	id_report UUID NOT NULL,
-	CONSTRAINT issues_report_pk PRIMARY KEY (id_issues_report)
+	CONSTRAINT issues_report_pk PRIMARY KEY (id_issues_report),
+	CONSTRAINT issues_report_reports_fk FOREIGN KEY (id_report) REFERENCES reports (id_report)
 );
 
 --TABLES AUDIT
@@ -97,7 +98,8 @@ CREATE TABLE audit_users (
 	last_audit_user json NOT NULL,
 	new_audit_user json,
 	id_user UUID NOT NULL,
-	CONSTRAINT id_audit_user_pk PRIMARY KEY (id_audit_user)
+	CONSTRAINT id_audit_user_pk PRIMARY KEY (id_audit_user),
+	CONSTRAINT id_audit_user_users_fk FOREIGN KEY (id_user) REFERENCES users (id_user)
 );
 
 CREATE TABLE audit_reports (
@@ -108,5 +110,6 @@ CREATE TABLE audit_reports (
 	last_audit_report json NOT NULL,
 	new_audit_report json,
 	id_user UUID NOT NULL,
-	CONSTRAINT id_audit_report_pk PRIMARY KEY (id_audit_report)
+	CONSTRAINT id_audit_report_pk PRIMARY KEY (id_audit_report),
+	CONSTRAINT id_audit_report_users_fk FOREIGN KEY (id_user) REFERENCES users (id_user)
 );
