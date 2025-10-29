@@ -6,7 +6,7 @@ SELECT create_super_user(
 );
 
 SELECT validate_super_user(
-	'searchData',
+	'reportsData',
 	'a1b2c3d4c0'
 );
 
